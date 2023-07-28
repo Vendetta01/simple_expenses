@@ -15,7 +15,6 @@ from pathlib import Path
 from typing import List
 
 from pydantic import BaseModel
-from pydantic.networks import IPv4Address
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -62,7 +61,7 @@ class Settings(BaseSettings):
 
     secret_key: str = "django-insecure-1)gcxgc9zc15-=%1438tib=w-wovi=gouk#rbpsydm##9xf3uc"
     debug: bool = True
-    allowed_hosts: List[IPv4Address] = ["simple-expenses.podewitz.local"]
+    allowed_hosts: List[str] = []
     db: DatabaseConfig = DatabaseConfig()
 
     language_code: str = "en-us"
