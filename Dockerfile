@@ -40,5 +40,5 @@ EXPOSE 8000
 
 # Copy entrypoint script into the image
 WORKDIR $CONTAINER_APP_PATH
-COPY ./scripts/docker-entrypoint.sh /
+COPY ./scripts/docker-entrypoint.sh ./scripts/wait-for-it.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

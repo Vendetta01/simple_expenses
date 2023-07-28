@@ -1,4 +1,12 @@
 #!/bin/bash
+
+# Wait for db to be ready
+# TODO: this harcodes the db parameters, refactor into something better
+/wait-for-it.sh ${SIMPLE_EXP_DB__HOST}:${SIMPLE_EXP_DB__PORT} \
+    -s -t 60 \
+    -- echo "Postgres is up and running" \
+    || echo "Postgres NOT running after waiting for 60 seconds"
+
 python manage.py migrate                  # Apply database migrations
 python manage.py collectstatic --noinput  # Collect static files
 

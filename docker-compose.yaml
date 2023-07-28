@@ -7,17 +7,17 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  dashboard:
-    image: metabase/metabase:latest
-    ports:
-      - "8001:3000"
-    volumes:
-      - ./data/metabase:/metabase-data
-    environment:
-      - JAVA_TIMEZONE=Europe/Berlin
-      - MB_DB_FILE=/metabase-data/metabase.db
-    depends_on:
-      - db
+  # dashboard:
+  #   image: metabase/metabase:latest
+  #   ports:
+  #     - "8001:3000"
+  #   volumes:
+  #     - ./data/metabase:/metabase-data
+  #   environment:
+  #     - JAVA_TIMEZONE=Europe/Berlin
+  #     - MB_DB_FILE=/metabase-data/metabase.db
+  #   depends_on:
+  #     - db
   web:
     build: .
     volumes:
@@ -34,7 +34,6 @@ services:
       - SIMPLE_EXP_DB__PORT=5432
       - "SIMPLE_EXP_SECRET_KEY=y2=2k%43!^jv_eecf*)e_3!psaz693q1syeq_6%4jm#c63-btl"
       - SIMPLE_EXP_DEBUG=true
-      #- "SIMPLE_EXP_ALLOWED_HOSTS=[\"0.0.0.0\",]"
       #- "SIMPLE_EXP_ALLOWED_HOSTS=['0.0.0.0']"
       - SIMPLE_EXP_LANGUAGE_CODE=de-de
       - SIMPLE_EXP_TIME_ZONE=Europe/Berlin
