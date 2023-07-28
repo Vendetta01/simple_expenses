@@ -19,4 +19,4 @@ python manage.py collectstatic --noinput  # Collect static files
 #     "$@"
 
 # TODO: create production ready script with some proxy that serves static files
-exec python manage.py runserver
+exec python manage.py runserver 0.0.0.0:8000

@@ -7,3 +7,4 @@
 * [X] Set up git
 * [ ] Integrate into docker-composition-home
 * [ ] Change entrypoint script to use gunicorn again (for that we need a proxy that serves the static files)
+* [ ] Get env variable ALLOWED_HOSTS to work properly (right now we get a json decode error...)
