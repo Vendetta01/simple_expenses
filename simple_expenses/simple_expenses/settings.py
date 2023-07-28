@@ -62,7 +62,7 @@ class Settings(BaseSettings):
 
     secret_key: str = "django-insecure-1)gcxgc9zc15-=%1438tib=w-wovi=gouk#rbpsydm##9xf3uc"
     debug: bool = True
-    allowed_hosts: List[IPv4Address] = []
+    allowed_hosts: List[IPv4Address] = ["simple-expenses.podewitz.local"]
     db: DatabaseConfig = DatabaseConfig()
 
     language_code: str = "en-us"
