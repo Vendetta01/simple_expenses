@@ -56,7 +56,8 @@ def parse_dict_into_model(
                 "data_source": data_source,
             },
         )
-        Transaction.objects.create(
+
+        new_transaction = Transaction(
             booking_date=booking_date,
             settlement_date=settlement_date,
             amount=amount,
@@ -67,3 +68,10 @@ def parse_dict_into_model(
             dst=dst,
             data_source=data_source,
         )
+
+        try:
+            Transaction.objects.get(_content_hash=new_transaction.content_hash)
+        except Transaction.DoesNotExist:
+            new_transaction.save()
+        else:
+            print(f"Skipping existing {new_transaction=}")

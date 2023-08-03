@@ -38,5 +38,6 @@ services:
       - SIMPLE_EXP_LANGUAGE_CODE=de-de
       - SIMPLE_EXP_TIME_ZONE=Europe/Berlin
       - SIMPLE_EXP_STATIC_ROOT=/app/static
+      #- 'SIMPLE_EXP_CSRF_TRUSTED_ORIGINS=["https://simple-expenses.podewitz.local"]'
     depends_on:
       - db

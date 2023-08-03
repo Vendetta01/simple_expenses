@@ -72,6 +72,8 @@ class Settings(BaseSettings):
     static_url: str = "static/"
     static_root: str = "/app/static"
 
+    csrf_trusted_origins: List[str] = []
+
 
 config = Settings()
 
@@ -181,3 +183,6 @@ STATIC_ROOT = config.static_root
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+CSRF_TRUSTED_ORIGINS = config.csrf_trusted_origins
