@@ -12,7 +12,7 @@ class AccountAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "parent"]
-    list_filter = ["parent"]
+    list_filter = ["parent__name"]
     search_fields = ["name"]
 
 
@@ -24,8 +24,8 @@ class DataSourceAdmin(admin.ModelAdmin):
 
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ["booking_date", "purpose", "category", "src", "dst", "amount", "type"]
-    list_filter = ["booking_date", "category", "dst", "type"]
-    search_fields = ["purpose", "dst"]
+    list_filter = ["booking_date", "category", "src", "type"]
+    search_fields = ["purpose", "src__name"]
     actions = [
         "batch_update_category",
     ]
