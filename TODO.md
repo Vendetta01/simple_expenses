@@ -11,3 +11,5 @@
 * [ ] Write tests
 * [ ] Create github actions to run tests and maybe create docker image on push
 * [X] Add whitenoise as static files server
+* [ ] Add checks to load of categories
+* [ ] Add atmoic operation so that either import succeeds or fails completely
