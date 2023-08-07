@@ -42,7 +42,15 @@ class Category(BaseModel):
     fields_to_hash = ["name", "parent"]
 
     def __str__(self):
-        return self.name
+        hierarchy_list = [
+            self.name,
+        ]
+        parent = self.parent
+        while parent is not None:
+            hierarchy_list.append(parent.name)
+            parent = parent.parent
+
+        return ".".join(reversed(hierarchy_list))
 
     @classmethod
     def get_unmapped_pk(cls):
@@ -99,6 +107,7 @@ class Transaction(BaseModel):
         Category, null=True, on_delete=models.DO_NOTHING, default=Category.get_unmapped_pk
     )
     data_source = models.ForeignKey(DataSource, on_delete=models.DO_NOTHING)
+    comment = models.TextField(null=True)
     load_timestamp = models.DateTimeField(default=pendulum.now)
 
     fields_to_hash = ["booking_date", "settlement_date", "amount", "currency", "type", "purpose"]
