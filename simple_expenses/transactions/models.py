@@ -1,13 +1,14 @@
+from datetime import datetime
 from decimal import Decimal
 from hashlib import sha256
-
-import pendulum
 
 from django.db import models
 
 
 class BaseModel(models.Model):
     _content_hash = models.CharField(max_length=64, null=True, blank=True, editable=False)
+    load_timestamp = models.DateTimeField(default=datetime.now)
+
     fields_to_hash = []
 
     @property
@@ -37,8 +38,6 @@ class Category(BaseModel):
     name = models.CharField(max_length=255, null=False)
     parent = models.ForeignKey("self", null=True, on_delete=models.DO_NOTHING)
 
-    load_timestamp = models.DateTimeField(default=pendulum.now)
-
     fields_to_hash = ["name", "parent"]
 
     def __str__(self):
@@ -67,8 +66,6 @@ class DataSource(BaseModel):
     source = models.CharField(max_length=255, unique=True)
     extract_timestamp = models.DateTimeField()
 
-    load_timestamp = models.DateTimeField(default=pendulum.now)
-
     fields_to_hash = ["name", "type", "source", "extract_timestamp"]
 
     def __str__(self):
@@ -81,7 +78,6 @@ class Account(BaseModel):
     bic = models.CharField(max_length=11, null=True)
 
     data_source = models.ForeignKey(DataSource, on_delete=models.DO_NOTHING)
-    load_timestamp = models.DateTimeField(default=pendulum.now)
 
     fields_to_hash = ["name", "iban", "bic"]
 
@@ -108,7 +104,6 @@ class Transaction(BaseModel):
     )
     data_source = models.ForeignKey(DataSource, on_delete=models.DO_NOTHING)
     comment = models.TextField(null=True)
-    load_timestamp = models.DateTimeField(default=pendulum.now)
 
     fields_to_hash = ["booking_date", "settlement_date", "amount", "currency", "type", "purpose"]
 

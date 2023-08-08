@@ -5,6 +5,10 @@ from .models import Account, Category, DataSource, Transaction
 from .views import batch_update_view
 
 
+class BaseAdmin(admin.ModelAdmin):
+    exclude = ("load_timestamp",)
+
+
 class CategoryListFilter(admin.SimpleListFilter):
     title = _("Category")
     parameter_name = "category_id"
@@ -22,25 +26,25 @@ class CategoryListFilter(admin.SimpleListFilter):
         return queryset
 
 
-class AccountAdmin(admin.ModelAdmin):
+class AccountAdmin(BaseAdmin):
     list_display = ["name", "iban", "bic", "data_source"]
     list_filter = ["data_source"]
     search_fields = ["name", "iban"]
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(BaseAdmin):
     list_display = ["name", "parent"]
     list_filter = ["parent__name"]
     search_fields = ["name"]
 
 
-class DataSourceAdmin(admin.ModelAdmin):
+class DataSourceAdmin(BaseAdmin):
     list_display = ["name", "type", "source", "extract_timestamp"]
     list_filter = ["type"]
     search_fields = ["name", "source"]
 
 
-class TransactionAdmin(admin.ModelAdmin):
+class TransactionAdmin(BaseAdmin):
     list_display = ["booking_date", "purpose", "category", "src", "dst", "amount", "type"]
     list_filter = [
         "booking_date",
