@@ -16,3 +16,4 @@
 * [X] Category should be printed as complete hierarchy
 * [ ] Add checks to load of categories
 * [ ] Add atmoic operation so that either import succeeds or fails completely
+* [X] Remove default admin delete action

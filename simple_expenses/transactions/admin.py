@@ -8,6 +8,12 @@ from .views import batch_update_view
 class BaseAdmin(admin.ModelAdmin):
     exclude = ("load_timestamp",)
 
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        del actions["delete_selected"]
+
+        return actions
+
 
 class CategoryListFilter(admin.SimpleListFilter):
     title = _("Category")
