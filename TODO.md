@@ -15,5 +15,5 @@
 * [X] Add new column "comment" to transactions so that we can add information that is not deductible from the purpose field
 * [X] Category should be printed as complete hierarchy
 * [ ] Add checks to load of categories
-* [ ] Add atmoic operation so that either import succeeds or fails completely
+* [X] Add atomic operation so that either import succeeds or fails completely
 * [X] Remove default admin delete action

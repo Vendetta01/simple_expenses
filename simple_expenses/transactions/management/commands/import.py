@@ -1,6 +1,7 @@
 import argparse
 
 from django.core.management.base import BaseCommand, CommandError
+from django.db import transaction
 
 from transactions.load_data.helpers import read_files_into_dict
 from transactions.load_data import categories, norisbank, vblh
@@ -22,26 +23,29 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        # 1.) read files from path
-        for _dict in read_files_into_dict(
-            path=options["file_path"],
-            skip_lines=options["skip_lines"],
-            encoding=options["encoding"],
-        ):
-            if options["source"] == "norisbank":
-                norisbank.parse_dict_into_model(_dict=_dict)
-            elif options["source"] == "vblh":
-                pass
-            elif options["source"] == "categories":
-                categories.parse_dict_into_model(_dict=_dict)
-            elif options["source"] == "category_mappings":
-                # read json and update all transactions
-                pass
+        # wrap whole import into single transaction so
+        # import either succeeds or fails completely
+        with transaction.atomic():
+            # 1.) read files from path
+            for _dict in read_files_into_dict(
+                path=options["file_path"],
+                skip_lines=options["skip_lines"],
+                encoding=options["encoding"],
+            ):
+                if options["source"] == "norisbank":
+                    norisbank.parse_dict_into_model(_dict=_dict)
+                elif options["source"] == "vblh":
+                    raise Exception("Not implemented yet")
+                elif options["source"] == "categories":
+                    categories.parse_dict_into_model(_dict=_dict)
+                elif options["source"] == "category_mappings":
+                    # read json and update all transactions
+                    raise Exception("Not implemented yet")
 
-            else:
-                raise CommandError(
-                    (
-                        f"Invalid value for source={options['source']}, "
-                        "please choose oe of {norisbank, vblh}"
+                else:
+                    raise CommandError(
+                        (
+                            f"Invalid value for source={options['source']}, "
+                            "please choose one of {norisbank, vblh}"
+                        )
                     )
-                )
