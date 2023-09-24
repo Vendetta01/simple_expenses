@@ -58,10 +58,9 @@ class TransactionAdmin(BaseAdmin):
         ("src", admin.RelatedOnlyFieldListFilter),
         "type",
     ]
+    list_editable = ["category"]
     search_fields = ["purpose", "src__name"]
-    actions = [
-        "batch_update_category",
-    ]
+    actions = ["batch_update_category"]
 
     @admin.action(description="Set category")
     def batch_update_category(self, request, queryset):
