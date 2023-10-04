@@ -23,12 +23,12 @@ jobs:
       with:
         scheme: calver
         increment: patch
-# TODO: create tag from new version and commit
-    - name: Output Version
-      env:
-        NEXT_VERSION: ${{ steps.version.outputs.version }}
-      run: echo "New Version $NEXT_VERSION"
-      
+    - name: Push next version as git tag
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "github-actions@users.noreply.github.com"
+        git tag v${{ steps.version.outputs.version }}
+        git push origin v${{ steps.version.outputs.version }}
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
